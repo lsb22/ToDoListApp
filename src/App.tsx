@@ -1,5 +1,7 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./Components/NavBar";
+import ToDoLIst from "./Components/ToDoLIst";
+import SidePanel from "./Components/SidePanel";
 
 function App() {
   return (
@@ -10,7 +12,7 @@ function App() {
       }}
       templateColumns={{
         base: "1fr",
-        lg: "250px 1fr",
+        lg: "350px 1fr",
       }}
     >
       <GridItem area="nav">
@@ -18,10 +20,14 @@ function App() {
       </GridItem>
 
       <Show above="lg">
-        <GridItem area="aside">side panel</GridItem>
+        <GridItem mr={10} ml={7} area="aside">
+          <SidePanel />
+        </GridItem>
       </Show>
 
-      <GridItem area="main">main</GridItem>
+      <GridItem area="main">
+        <ToDoLIst />
+      </GridItem>
     </Grid>
   );
 }
