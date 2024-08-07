@@ -1,21 +1,13 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import useTodoos from "../hooks/useTodoos";
 
-interface Todos {
+export interface Todos {
   name: string;
   description: string;
   date: string;
 }
 
 const ToDoLIst = () => {
-  const [toDoos, setToDoos] = useState<Todos[]>([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/toDoos")
-      .then((res) => setToDoos(res.data))
-      .catch((err) => console.log(err.message));
-  }, []);
+  const { toDoos } = useTodoos();
 
   return (
     <>
