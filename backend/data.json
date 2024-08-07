@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {
+      "name": "Exam",
+      "description": "Need to prepare for the upcoming 4th sem exams.",
+      "date": "10"
+    },
+    {
+      "name": "dbms",
+      "description": "Read dbms all modules.",
+      "date": "11"
+    }
+  ]
+}

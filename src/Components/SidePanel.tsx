@@ -13,15 +13,19 @@ import {
   CardHeader,
   HStack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
+import AddNewTaskModal from "./AddNewTaskModal";
 
 const SidePanel = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Card>
       <CardHeader>
-        <Button width="100%" colorScheme="green">
+        <Button width="100%" colorScheme="green" onClick={onOpen}>
           <AddIcon mr={2} /> New Task
         </Button>
+        <AddNewTaskModal onClose={onClose} isOpen={isOpen} />
       </CardHeader>
       <CardBody>
         <Box>
