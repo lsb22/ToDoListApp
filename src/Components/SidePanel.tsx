@@ -16,16 +16,25 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import AddNewTaskModal from "./AddNewTaskModal";
+import { Todos } from "../hooks/useTodoos";
 
-const SidePanel = () => {
+interface Props {
+  sendTodo: (todo: Todos) => void;
+}
+
+const SidePanel = ({ sendTodo }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Card>
+    <Card boxShadow="2xl">
       <CardHeader>
         <Button width="100%" colorScheme="green" onClick={onOpen}>
           <AddIcon mr={2} /> New Task
         </Button>
-        <AddNewTaskModal onClose={onClose} isOpen={isOpen} />
+        <AddNewTaskModal
+          onClose={onClose}
+          isOpen={isOpen}
+          sendTodo={sendTodo}
+        />
       </CardHeader>
       <CardBody>
         <Box>

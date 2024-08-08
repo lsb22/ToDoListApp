@@ -19,8 +19,20 @@ app.listen(5000, () => {
   console.log("server is running on port 5000");
 });
 
+// fetching tasks
 app.get("/toDoos", (req, res) => {
   res.send(data.tasks);
+});
+
+// adding new task
+app.post("/addTodo", (req, res) => {
+  if (!req.body)
+    return res.status(400).json({ message: "Please Enter details" });
+  const newTask = {
+    tasks: [...data.tasks, req.body],
+  };
+  fs.writeFileSync(filePath, JSON.stringify(newTask));
+  res.send(newTask.tasks);
 });
 
 // const d = {

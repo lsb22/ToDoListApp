@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import apiClient from "../Services/api-client";
-import { Todos } from "../Components/ToDoLIst";
+
+export interface Todos {
+  name: string;
+  description: string;
+  date: string;
+}
 
 const useTodoos = () => {
   const [toDoos, setToDoos] = useState<Todos[]>([]);
@@ -15,7 +20,7 @@ const useTodoos = () => {
       });
   }, []);
 
-  return { toDoos, setToDoos, error };
+  return { toDoos, setToDoos, error, setError };
 };
 
 export default useTodoos;

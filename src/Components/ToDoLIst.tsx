@@ -1,25 +1,19 @@
-import useTodoos from "../hooks/useTodoos";
+import { SimpleGrid } from "@chakra-ui/react";
+import { Todos } from "../hooks/useTodoos";
+import ToDoCard from "./ToDoCard";
 
-export interface Todos {
-  name: string;
-  description: string;
-  date: string;
+interface Props {
+  toDoos: Todos[];
 }
 
-const ToDoLIst = () => {
-  const { toDoos } = useTodoos();
-
+const ToDoLIst = ({ toDoos }: Props) => {
   return (
     <>
-      <ul>
+      <SimpleGrid columns={{ sm: 2, lg: 3 }} gap={3}>
         {toDoos.map((todo) => (
-          <div key={todo.name}>
-            <li>{todo.name}</li>
-            <li>{todo.description}</li>
-            <li>{todo.date}</li>
-          </div>
+          <ToDoCard key={todo.name} todo={todo} />
         ))}
-      </ul>
+      </SimpleGrid>
     </>
   );
 };
