@@ -12,10 +12,11 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 interface Props {
   todo: Todos;
-  key: string;
+  key: number;
+  taskCompleted: (id: number) => void;
 }
 
-const ToDoCard = ({ todo }: Props) => {
+const ToDoCard = ({ todo, taskCompleted }: Props) => {
   const new_date = new Date(todo.date);
   const month = new_date.toLocaleString("default", { month: "long" });
   const day = new_date.getDate();
@@ -23,12 +24,13 @@ const ToDoCard = ({ todo }: Props) => {
   const hours = new_date.getHours();
   const minutes = new_date.getMinutes();
   const time = hours >= 12 ? "PM" : "AM";
+  console.log(typeof todo.isCompleted);
   return (
     <Card boxShadow="2xl">
       <CardHeader>
         <HStack justifyContent="space-between">
           <HStack>
-            <Checkbox size="lg" />
+            <Checkbox size="lg" onChange={() => taskCompleted(todo.id)} />
             <Badge ml={3} fontSize="lg" fontWeight="bold" colorScheme="pink">
               {todo.name}
             </Badge>

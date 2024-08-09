@@ -12,12 +12,20 @@ function App() {
     const original = [...toDoos];
     // setToDoos([...toDoos, newTodo]); not doing this because it's leading to race condition
     apiClient
-      .post("/addTodo", newTodo)
+      .post("/addTodo", { ...newTodo, id: toDoos.length + 1 })
       .then((res) => setToDoos(res.data)) // to avoid race condition
       .catch((err) => {
         setError(err.message);
         setToDoos(original);
       });
+  };
+
+  const updateCompletion = (id: number) => {
+    console.log(id);
+    apiClient
+      .delete("/" + id)
+      .then((res) => setToDoos(res.data))
+      .catch((err) => setError(err));
   };
 
   return (
@@ -43,7 +51,10 @@ function App() {
 
       <GridItem area="main" padding={5}>
         {error && <Text color="red">{error}</Text>}
-        <ToDoLIst toDoos={toDoos} />
+        <ToDoLIst
+          toDoos={toDoos.filter((task) => !task.isCompleted)}
+          taskCompleted={(id: number) => updateCompletion(id)}
+        />
       </GridItem>
     </Grid>
   );

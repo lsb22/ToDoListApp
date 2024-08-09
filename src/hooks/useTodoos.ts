@@ -5,6 +5,8 @@ export interface Todos {
   name: string;
   description: string;
   date: string;
+  isCompleted: boolean;
+  id: number;
 }
 
 const useTodoos = () => {

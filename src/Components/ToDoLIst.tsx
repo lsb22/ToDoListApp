@@ -4,14 +4,16 @@ import ToDoCard from "./ToDoCard";
 
 interface Props {
   toDoos: Todos[];
+  taskCompleted: (id: number) => void;
 }
 
-const ToDoLIst = ({ toDoos }: Props) => {
+const ToDoLIst = ({ toDoos, taskCompleted }: Props) => {
   return (
     <>
-      <SimpleGrid columns={{ sm: 2, lg: 3 }} gap={3}>
+      <SimpleGrid columns={{ sm: 2, xl: 3 }} gap={3}>
+        {/* {toDoos.length} */}
         {toDoos.map((todo) => (
-          <ToDoCard key={todo.name} todo={todo} />
+          <ToDoCard key={todo.id} todo={todo} taskCompleted={taskCompleted} />
         ))}
       </SimpleGrid>
     </>
