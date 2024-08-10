@@ -37,12 +37,27 @@ app.post("/addTodo", (req, res) => {
 
 // removing completed task
 
-app.delete("/:id", (req, res) => {
+app.delete("/complete/:id", (req, res) => {
   const { id } = req.params;
 
   const updatedTasks = {
     tasks: data.tasks.map((task) =>
       task.id === id ? { ...task, isCompleted: true } : task
+    ),
+  };
+
+  fs.writeFileSync(filePath, JSON.stringify(updatedTasks));
+  res.send(updatedTasks.tasks);
+});
+
+// deleting tasks
+
+app.delete("/delete/:id", (req, res) => {
+  const { id } = req.params;
+
+  const updatedTasks = {
+    tasks: data.tasks.map((task) =>
+      task.id === id ? { ...task, isDeleted: true } : task
     ),
   };
 

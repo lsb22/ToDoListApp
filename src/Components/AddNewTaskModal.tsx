@@ -56,7 +56,12 @@ const AddNewTaskModal = ({ onClose, isOpen, sendTodo }: Props) => {
         <ModalBody>
           <form
             onSubmit={handleSubmit((data) => {
-              const task = { ...data, isCompleted: false, id: 0 };
+              const task = {
+                ...data,
+                isCompleted: false,
+                id: 0,
+                isDeleted: false,
+              };
               sendTodo(task);
               reset();
               onClose();

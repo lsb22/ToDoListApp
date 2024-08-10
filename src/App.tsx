@@ -4,6 +4,9 @@ import ToDoLIst from "./Components/ToDoLIst";
 import SidePanel from "./Components/SidePanel";
 import useTodoos, { Todos } from "./hooks/useTodoos";
 import apiClient from "./Services/api-client";
+import { Route, Routes } from "react-router-dom";
+import CompletedTasks from "./Components/CompletedTasks";
+import DeletedTasks from "./Components/DeletedTasks";
 
 function App() {
   const { toDoos, setToDoos, error, setError } = useTodoos();
@@ -21,9 +24,15 @@ function App() {
   };
 
   const updateCompletion = (id: number) => {
-    console.log(id);
     apiClient
-      .delete("/" + id)
+      .delete("/complete/" + id)
+      .then((res) => setToDoos(res.data))
+      .catch((err) => setError(err));
+  };
+
+  const deleteTask = (id: number) => {
+    apiClient
+      .delete("/delete/" + id)
       .then((res) => setToDoos(res.data))
       .catch((err) => setError(err));
   };
@@ -43,7 +52,7 @@ function App() {
         <NavBar />
       </GridItem>
 
-      <Show above="lg">
+      <Show above="md">
         <GridItem mr={10} ml={7} area="aside">
           <SidePanel sendTodo={(data: Todos) => addNewTask(data)} />
         </GridItem>
@@ -51,10 +60,40 @@ function App() {
 
       <GridItem area="main" padding={5}>
         {error && <Text color="red">{error}</Text>}
-        <ToDoLIst
-          toDoos={toDoos.filter((task) => !task.isCompleted)}
-          taskCompleted={(id: number) => updateCompletion(id)}
-        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ToDoLIst
+                toDoos={toDoos.filter(
+                  (task) => !task.isCompleted && !task.isDeleted
+                )}
+                taskCompleted={(id: number) => updateCompletion(id)}
+                taskDeleted={(id: number) => deleteTask(id)}
+              />
+            }
+          />
+          <Route
+            path="/completed"
+            element={
+              <CompletedTasks
+                tasks={toDoos.filter(
+                  (task) => task.isCompleted && !task.isDeleted
+                )}
+              />
+            }
+          />
+          <Route
+            path="/removed"
+            element={
+              <DeletedTasks
+                tasks={toDoos.filter(
+                  (task) => !task.isCompleted && task.isDeleted
+                )}
+              />
+            }
+          />
+        </Routes>
       </GridItem>
     </Grid>
   );

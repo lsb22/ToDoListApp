@@ -14,9 +14,10 @@ interface Props {
   todo: Todos;
   key: number;
   taskCompleted: (id: number) => void;
+  taskDeleted: (id: number) => void;
 }
 
-const ToDoCard = ({ todo, taskCompleted }: Props) => {
+const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
   const new_date = new Date(todo.date);
   const month = new_date.toLocaleString("default", { month: "long" });
   const day = new_date.getDate();
@@ -24,7 +25,6 @@ const ToDoCard = ({ todo, taskCompleted }: Props) => {
   const hours = new_date.getHours();
   const minutes = new_date.getMinutes();
   const time = hours >= 12 ? "PM" : "AM";
-  console.log(typeof todo.isCompleted);
   return (
     <Card boxShadow="2xl">
       <CardHeader>
@@ -36,8 +36,16 @@ const ToDoCard = ({ todo, taskCompleted }: Props) => {
             </Badge>
           </HStack>
           <HStack>
-            <EditIcon color="violet" mr={3} />
-            <DeleteIcon color="red" />
+            <EditIcon
+              color="violet"
+              mr={3}
+              _hover={{ color: "teal", boxSize: 5 }}
+            />
+            <DeleteIcon
+              onClick={() => taskDeleted(todo.id)}
+              color="red"
+              _hover={{ color: "red.700" }}
+            />
           </HStack>
         </HStack>
         <Text mt={2} color="skyblue">

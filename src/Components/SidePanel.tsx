@@ -1,6 +1,7 @@
 import {
   AddIcon,
   ArrowRightIcon,
+  CalendarIcon,
   CheckCircleIcon,
   DeleteIcon,
   StarIcon,
@@ -17,6 +18,8 @@ import {
 } from "@chakra-ui/react";
 import AddNewTaskModal from "./AddNewTaskModal";
 import { Todos } from "../hooks/useTodoos";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface Props {
   sendTodo: (todo: Todos) => void;
@@ -24,6 +27,8 @@ interface Props {
 
 const SidePanel = ({ sendTodo }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedComponent, setSelectedComponent] = useState("All Tasks");
+  const navigate = useNavigate();
   return (
     <Card boxShadow="2xl">
       <CardHeader>
@@ -38,25 +43,81 @@ const SidePanel = ({ sendTodo }: Props) => {
       </CardHeader>
       <CardBody>
         <Box>
-          <Button variant="link" fontSize="xl" mb={5} display="block">
+          <Button
+            variant="link"
+            fontSize="xl"
+            mb={5}
+            display="block"
+            onClick={() => {
+              setSelectedComponent("All Tasks");
+              navigate("/");
+            }}
+            color={selectedComponent === "All Tasks" ? "coral" : "whitesmoke"}
+          >
+            <HStack>
+              <CalendarIcon boxSize={4} mr={4} />
+              <Text>All Tasks</Text>
+            </HStack>
+          </Button>
+          <Button
+            variant="link"
+            fontSize="xl"
+            mb={5}
+            display="block"
+            onClick={() => {
+              setSelectedComponent("Important");
+              navigate("/important");
+            }}
+            color={selectedComponent === "Important" ? "coral" : "whitesmoke"}
+          >
             <HStack>
               <StarIcon boxSize={4} mr={4} />
               <Text>Important</Text>
             </HStack>
           </Button>
-          <Button variant="link" fontSize="xl" mb={5} display="block">
+          <Button
+            variant="link"
+            fontSize="xl"
+            mb={5}
+            display="block"
+            onClick={() => {
+              setSelectedComponent("Completed");
+              navigate("/completed");
+            }}
+            color={selectedComponent === "Completed" ? "coral" : "whitesmoke"}
+          >
             <HStack>
               <CheckCircleIcon boxSize={4} mr={4} />
               <Text>Completed</Text>
             </HStack>
           </Button>
-          <Button variant="link" fontSize="xl" mb={5} display="block">
+          <Button
+            variant="link"
+            fontSize="xl"
+            mb={5}
+            display="block"
+            onClick={() => {
+              setSelectedComponent("Removed");
+              navigate("/removed");
+            }}
+            color={selectedComponent === "Removed" ? "coral" : "whitesmoke"}
+          >
             <HStack>
               <DeleteIcon boxSize={4} mr={4} />
               <Text>Removed</Text>
             </HStack>
           </Button>
-          <Button variant="link" fontSize="xl" mb={5} display="block">
+          <Button
+            variant="link"
+            fontSize="xl"
+            mb={5}
+            display="block"
+            onClick={() => {
+              setSelectedComponent("Due Soon");
+              navigate("/dueSoon");
+            }}
+            color={selectedComponent === "Due Soon" ? "coral" : "whitesmoke"}
+          >
             <HStack>
               <ArrowRightIcon boxSize={4} mr={4} />
               <Text>Due Soon</Text>
