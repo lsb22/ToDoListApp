@@ -8,6 +8,7 @@ export interface Todos {
   isCompleted: boolean;
   id: number;
   isDeleted: boolean;
+  important: boolean;
 }
 
 const useTodoos = () => {

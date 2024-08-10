@@ -52,7 +52,7 @@ const SidePanel = ({ sendTodo }: Props) => {
               setSelectedComponent("All Tasks");
               navigate("/");
             }}
-            color={selectedComponent === "All Tasks" ? "coral" : "whitesmoke"}
+            color={selectedComponent === "All Tasks" ? "coral" : "white"}
           >
             <HStack>
               <CalendarIcon boxSize={4} mr={4} />
@@ -68,7 +68,7 @@ const SidePanel = ({ sendTodo }: Props) => {
               setSelectedComponent("Important");
               navigate("/important");
             }}
-            color={selectedComponent === "Important" ? "coral" : "whitesmoke"}
+            color={selectedComponent === "Important" ? "coral" : "white"}
           >
             <HStack>
               <StarIcon boxSize={4} mr={4} />
@@ -84,7 +84,7 @@ const SidePanel = ({ sendTodo }: Props) => {
               setSelectedComponent("Completed");
               navigate("/completed");
             }}
-            color={selectedComponent === "Completed" ? "coral" : "whitesmoke"}
+            color={selectedComponent === "Completed" ? "coral" : "white"}
           >
             <HStack>
               <CheckCircleIcon boxSize={4} mr={4} />
@@ -100,7 +100,7 @@ const SidePanel = ({ sendTodo }: Props) => {
               setSelectedComponent("Removed");
               navigate("/removed");
             }}
-            color={selectedComponent === "Removed" ? "coral" : "whitesmoke"}
+            color={selectedComponent === "Removed" ? "coral" : "white"}
           >
             <HStack>
               <DeleteIcon boxSize={4} mr={4} />
@@ -116,7 +116,7 @@ const SidePanel = ({ sendTodo }: Props) => {
               setSelectedComponent("Due Soon");
               navigate("/dueSoon");
             }}
-            color={selectedComponent === "Due Soon" ? "coral" : "whitesmoke"}
+            color={selectedComponent === "Due Soon" ? "coral" : "white"}
           >
             <HStack>
               <ArrowRightIcon boxSize={4} mr={4} />

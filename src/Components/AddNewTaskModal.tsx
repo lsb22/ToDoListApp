@@ -12,6 +12,8 @@ import {
   ModalOverlay,
   Textarea,
   Text,
+  Checkbox,
+  HStack,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -22,12 +24,13 @@ const schema = z.object({
   name: z
     .string({ message: "Task name is required." })
     .min(3, { message: "Length should be atleast 3" })
-    .max(10, { message: "Length should be less than equal 10" }),
+    .max(10, { message: "Length should be less than equal 9" }),
   description: z
     .string({ message: "Description is required." })
     .min(5, { message: "Length should be atleast 5" })
     .max(999, { message: "Length should be less than equal 999" }),
   date: z.string().min(16, { message: "date is required." }),
+  important: z.boolean(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -95,6 +98,14 @@ const AddNewTaskModal = ({ onClose, isOpen, sendTodo }: Props) => {
                 {...register("date")}
               />
               {errors.date && <Text color="red">{errors.date.message}</Text>}
+            </FormControl>
+            <FormControl mt={4} mb={3}>
+              <HStack alignContent="center">
+                <Checkbox {...register("important")} />
+                <Text fontSize="md" fontWeight="bold">
+                  Important
+                </Text>
+              </HStack>
             </FormControl>
             <Button type="submit" colorScheme="green">
               Create

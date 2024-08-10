@@ -7,6 +7,7 @@ import apiClient from "./Services/api-client";
 import { Route, Routes } from "react-router-dom";
 import CompletedTasks from "./Components/CompletedTasks";
 import DeletedTasks from "./Components/DeletedTasks";
+import ImportantTasks from "./Components/ImportantTasks";
 
 function App() {
   const { toDoos, setToDoos, error, setError } = useTodoos();
@@ -41,10 +42,11 @@ function App() {
     <Grid
       templateAreas={{
         base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`,
+        md: `"nav nav" "aside main"`,
       }}
       templateColumns={{
         base: "1fr",
+        md: "315 1fr",
         lg: "350px 1fr",
       }}
     >
@@ -91,6 +93,12 @@ function App() {
                   (task) => !task.isCompleted && task.isDeleted
                 )}
               />
+            }
+          />
+          <Route
+            path="/important"
+            element={
+              <ImportantTasks tasks={toDoos.filter((task) => task.important)} />
             }
           />
         </Routes>

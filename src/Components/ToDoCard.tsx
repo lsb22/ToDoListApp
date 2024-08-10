@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Todos } from "../hooks/useTodoos";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon, StarIcon } from "@chakra-ui/icons";
 
 interface Props {
   todo: Todos;
@@ -30,25 +30,33 @@ const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
       <CardHeader>
         <HStack justifyContent="space-between">
           <HStack>
-            <Checkbox size="lg" onChange={() => taskCompleted(todo.id)} />
-            <Badge ml={3} fontSize="lg" fontWeight="bold" colorScheme="pink">
+            <Checkbox size="md" onChange={() => taskCompleted(todo.id)} />
+            <Badge ml={1} fontSize="sm" fontWeight="bold" colorScheme="teal">
               {todo.name}
             </Badge>
+            {todo.important && <StarIcon color="gold" />}
           </HStack>
           <HStack>
             <EditIcon
               color="violet"
-              mr={3}
+              mr={2}
               _hover={{ color: "teal", boxSize: 5 }}
+              boxSize={3}
             />
             <DeleteIcon
               onClick={() => taskDeleted(todo.id)}
               color="red"
               _hover={{ color: "red.700" }}
+              boxSize={3}
             />
           </HStack>
         </HStack>
-        <Text mt={2} color="skyblue">
+        <Text
+          mt={2}
+          bgGradient="linear(145deg,#fff685,#0049b7)"
+          bgClip="text"
+          fontWeight="bold"
+        >
           Due on:
           {" " +
             month +
@@ -65,7 +73,9 @@ const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
         </Text>
       </CardHeader>
       <CardBody>
-        <Text fontSize={25}>{todo.description}</Text>
+        <Text fontSize={25} fontStyle="italic">
+          {todo.description}
+        </Text>
       </CardBody>
     </Card>
   );
