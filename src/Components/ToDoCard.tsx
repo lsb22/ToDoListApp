@@ -1,14 +1,18 @@
 import {
   Badge,
+  Button,
   Card,
   CardBody,
   CardHeader,
   Checkbox,
   HStack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Todos } from "../hooks/useTodoos";
 import { DeleteIcon, EditIcon, StarIcon } from "@chakra-ui/icons";
+import TrimContent from "./TrimContent";
+import ExpandTodoCard from "./ExpandTodoCard";
 
 interface Props {
   todo: Todos;
@@ -18,6 +22,7 @@ interface Props {
 }
 
 const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const new_date = new Date(todo.date);
   const month = new_date.toLocaleString("default", { month: "long" });
   const day = new_date.getDate();
@@ -25,9 +30,28 @@ const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
   const hours = new_date.getHours();
   const minutes = new_date.getMinutes();
   const time = hours >= 12 ? "PM" : "AM";
+  const full_time =
+    " " +
+    month +
+    " " +
+    day +
+    ", " +
+    year +
+    " " +
+    hours +
+    ":" +
+    minutes +
+    " " +
+    time;
   return (
     <Card boxShadow="2xl">
       <CardHeader>
+        <ExpandTodoCard
+          task={todo}
+          isOpen={isOpen}
+          onClose={onClose}
+          time={full_time}
+        />
         <HStack justifyContent="space-between">
           <HStack>
             <Checkbox size="md" onChange={() => taskCompleted(todo.id)} />
@@ -58,23 +82,15 @@ const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
           fontWeight="bold"
         >
           Due on:
-          {" " +
-            month +
-            " " +
-            day +
-            ", " +
-            year +
-            " " +
-            hours +
-            ":" +
-            minutes +
-            " " +
-            time}
+          {full_time}
         </Text>
       </CardHeader>
       <CardBody>
-        <Text fontSize={25} fontStyle="italic">
-          {todo.description}
+        <Text fontSize={23} fontStyle="italic">
+          <TrimContent description={todo.description} />
+          <Button fontStyle="italic" variant="link" onClick={onOpen}>
+            ...Expand
+          </Button>
         </Text>
       </CardBody>
     </Card>
