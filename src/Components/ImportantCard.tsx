@@ -1,19 +1,24 @@
 import {
   Badge,
+  Button,
   Card,
   CardBody,
   CardHeader,
   HStack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Todos } from "../hooks/useTodoos";
 import { CheckCircleIcon, CloseIcon, StarIcon } from "@chakra-ui/icons";
+import ExpandTodoCard from "./ExpandTodoCard";
+import TrimContent from "./TrimContent";
 
 interface Props {
   task: Todos;
 }
 
 const ImportantCard = ({ task }: Props) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const new_date = new Date(task.date);
   const month = new_date.toLocaleString("default", { month: "long" });
   const day = new_date.getDate();
@@ -21,10 +26,29 @@ const ImportantCard = ({ task }: Props) => {
   const hours = new_date.getHours();
   const minutes = new_date.getMinutes();
   const time = hours >= 12 ? "PM" : "AM";
+  const full_time =
+    " " +
+    month +
+    " " +
+    day +
+    ", " +
+    year +
+    " " +
+    hours +
+    ":" +
+    minutes +
+    " " +
+    time;
 
   return (
     <Card borderTop="1px solid gold" boxShadow="lg">
       <CardHeader>
+        <ExpandTodoCard
+          task={task}
+          isOpen={isOpen}
+          onClose={onClose}
+          time={full_time}
+        />
         <Badge colorScheme="red" fontSize="lg">
           {task.name}
         </Badge>
@@ -34,20 +58,9 @@ const ImportantCard = ({ task }: Props) => {
           mb={3}
           bgGradient="linear(83deg,#C850C0 46%,#FFCC70 100%)"
           bgClip="text"
+          fontWeight={700}
         >
-          Due on:{" "}
-          {" " +
-            month +
-            " " +
-            day +
-            ", " +
-            year +
-            " " +
-            hours +
-            ":" +
-            minutes +
-            " " +
-            time}
+          Due on: {full_time}
         </Text>
         {task.isCompleted ? (
           <HStack>
@@ -65,7 +78,10 @@ const ImportantCard = ({ task }: Props) => {
       </CardHeader>
       <CardBody>
         <Text fontSize="xl" fontWeight="bold">
-          {task.description}
+          <TrimContent description={task.description} />
+          <Button fontStyle="italic" variant="link" onClick={onOpen}>
+            ...Expand
+          </Button>
         </Text>
       </CardBody>
     </Card>

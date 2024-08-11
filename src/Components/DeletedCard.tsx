@@ -1,11 +1,22 @@
-import { Badge, Card, CardBody, CardHeader, Text } from "@chakra-ui/react";
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { Todos } from "../hooks/useTodoos";
+import TrimContent from "./TrimContent";
+import ExpandTodoCard from "./ExpandTodoCard";
 
 interface Props {
   task: Todos;
 }
 
 const DeletedCard = ({ task }: Props) => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const new_date = new Date(task.date);
   const month = new_date.toLocaleString("default", { month: "long" });
   const day = new_date.getDate();
@@ -13,10 +24,29 @@ const DeletedCard = ({ task }: Props) => {
   const hours = new_date.getHours();
   const minutes = new_date.getMinutes();
   const time = hours >= 12 ? "PM" : "AM";
+  const full_time =
+    " " +
+    month +
+    " " +
+    day +
+    ", " +
+    year +
+    " " +
+    hours +
+    ":" +
+    minutes +
+    " " +
+    time;
 
   return (
     <Card borderTop="1px solid red" boxShadow="lg">
       <CardHeader>
+        <ExpandTodoCard
+          task={task}
+          isOpen={isOpen}
+          onClose={onClose}
+          time={full_time}
+        />
         <Badge colorScheme="red" fontSize="lg">
           {task.name}
         </Badge>
@@ -24,25 +54,17 @@ const DeletedCard = ({ task }: Props) => {
           mt={3}
           bgGradient="linear(83deg,#C850C0 46%,#FFCC70 100%)"
           bgClip="text"
+          fontWeight={550}
         >
-          Was due on:{" "}
-          {" " +
-            month +
-            " " +
-            day +
-            ", " +
-            year +
-            " " +
-            hours +
-            ":" +
-            minutes +
-            " " +
-            time}
+          Was due on: {full_time}
         </Text>
       </CardHeader>
       <CardBody>
         <Text fontSize="xl" fontWeight="bold">
-          {task.description}
+          <TrimContent description={task.description} />
+          <Button fontStyle="italic" variant="link" onClick={onOpen}>
+            ...Expand
+          </Button>
         </Text>
       </CardBody>
     </Card>
