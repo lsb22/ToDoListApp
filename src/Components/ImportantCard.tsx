@@ -1,5 +1,6 @@
 import {
   Badge,
+  Box,
   Button,
   Card,
   CardBody,
@@ -78,12 +79,12 @@ const ImportantCard = ({ task }: Props) => {
         )}
       </CardHeader>
       <CardBody>
-        <Text fontSize="xl" fontWeight="bold">
+        <Box fontSize="xl" fontWeight="bold">
           <TrimContent description={task.description} />
           <Button fontStyle="italic" variant="link" onClick={onOpen}>
             ...Expand
           </Button>
-        </Text>
+        </Box>
       </CardBody>
     </Card>
   );

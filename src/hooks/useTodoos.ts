@@ -9,6 +9,7 @@ export interface Todos {
   id: number;
   isDeleted: boolean;
   important: boolean;
+  lastUpdated: string;
 }
 
 const useTodoos = () => {

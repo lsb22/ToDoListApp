@@ -50,6 +50,26 @@ const AddNewTaskModal = ({ onClose, isOpen, sendTodo }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+  const d = new Date();
+  const month = d.toLocaleString("default", { month: "long" });
+  const day = d.getDate();
+  const year = d.getFullYear();
+  const hours = d.getHours();
+  const minutes = d.getMinutes();
+  const time = hours >= 12 ? "PM" : "AM";
+  const current_date =
+    " " +
+    month +
+    " " +
+    day +
+    ", " +
+    year +
+    " " +
+    hours +
+    ":" +
+    minutes +
+    " " +
+    time;
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -64,6 +84,7 @@ const AddNewTaskModal = ({ onClose, isOpen, sendTodo }: Props) => {
                 isCompleted: false,
                 id: 0,
                 isDeleted: false,
+                lastUpdated: current_date,
               };
               sendTodo(task);
               reset();

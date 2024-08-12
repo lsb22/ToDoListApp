@@ -1,5 +1,6 @@
 import {
   Badge,
+  Box,
   Button,
   Card,
   CardBody,
@@ -20,6 +21,10 @@ interface Props {
   taskCompleted: (id: number) => void;
   taskDeleted: (id: number) => void;
 }
+
+const handleEdit = (task: Todos) => {
+  console.log(task);
+};
 
 const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -66,6 +71,7 @@ const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
               mr={2}
               _hover={{ color: "teal", boxSize: 5 }}
               boxSize={3}
+              onClick={() => handleEdit(todo)}
             />
             <DeleteIcon
               onClick={() => taskDeleted(todo.id)}
@@ -86,12 +92,12 @@ const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
         </Text>
       </CardHeader>
       <CardBody>
-        <Text fontSize={23} fontStyle="italic">
+        <Box fontSize={23} fontStyle="italic">
           <TrimContent description={todo.description} />
           <Button fontStyle="italic" variant="link" onClick={onOpen}>
             ...Expand
           </Button>
-        </Text>
+        </Box>
       </CardBody>
     </Card>
   );

@@ -1,5 +1,6 @@
 import {
   Badge,
+  Box,
   Button,
   Card,
   CardBody,
@@ -61,12 +62,12 @@ const CompletedCard = ({ task }: Props) => {
         </Text>
       </CardHeader>
       <CardBody>
-        <Text fontSize="xl" fontWeight="bold">
+        <Box fontSize="xl" fontWeight="bold">
           <TrimContent description={task.description} />
           <Button fontStyle="italic" variant="link" onClick={onOpen}>
             ...Expand
           </Button>
-        </Text>
+        </Box>
       </CardBody>
     </Card>
   );

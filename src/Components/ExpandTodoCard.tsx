@@ -20,6 +20,13 @@ interface Props {
 }
 
 const ExpandTodoCard = ({ task, isOpen, onClose, time }: Props) => {
+  // const new_date = new Date(task.lastUpdated);
+  // const month = new_date.toLocaleString("default", { month: "long" });
+  // const day = new_date.getDate();
+  // const year = new_date.getFullYear();
+  // const hours = new_date.getHours();
+  // const minutes = new_date.getMinutes();
+  // const lasttime = hours >= 12 ? "PM" : "AM";
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="right" size="lg">
       <DrawerOverlay />
@@ -34,8 +41,9 @@ const ExpandTodoCard = ({ task, isOpen, onClose, time }: Props) => {
         <DrawerBody>
           Description:
           <Text fontSize={30}>{task.description}</Text>
-          <Box mt={5}>
-            <Text>Last Updated on:</Text>
+          <Box mt={5} fontSize={20}>
+            Last Updated on:
+            <Text fontWeight={500}>{task.lastUpdated}</Text>
           </Box>
         </DrawerBody>
         <DrawerFooter justifyContent="space-between">
