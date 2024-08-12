@@ -15,6 +15,7 @@ import TrimContent from "./TrimContent";
 
 interface Props {
   task: Todos;
+  key: number;
 }
 
 const ImportantCard = ({ task }: Props) => {

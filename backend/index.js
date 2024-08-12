@@ -21,7 +21,7 @@ app.listen(5000, () => {
 
 // fetching tasks
 app.get("/toDoos", (req, res) => {
-  res.send(data.tasks);
+  return res.send(data.tasks);
 });
 
 // adding new task
@@ -32,28 +32,27 @@ app.post("/addTodo", (req, res) => {
     tasks: [...data.tasks, req.body],
   };
   fs.writeFileSync(filePath, JSON.stringify(newTask));
-  res.send(newTask.tasks);
+  return res.send(newTask.tasks);
 });
 
 // removing completed task
 
 app.delete("/complete/:id", (req, res) => {
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
 
   const updatedTasks = {
     tasks: data.tasks.map((task) =>
       task.id === id ? { ...task, isCompleted: true } : task
     ),
   };
-
   fs.writeFileSync(filePath, JSON.stringify(updatedTasks));
-  res.send(updatedTasks.tasks);
+  return res.send(updatedTasks.tasks);
 });
 
 // deleting tasks
 
 app.delete("/delete/:id", (req, res) => {
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
 
   const updatedTasks = {
     tasks: data.tasks.map((task) =>
@@ -62,7 +61,7 @@ app.delete("/delete/:id", (req, res) => {
   };
 
   fs.writeFileSync(filePath, JSON.stringify(updatedTasks));
-  res.send(updatedTasks.tasks);
+  return res.send(updatedTasks.tasks);
 });
 
 // const d = {

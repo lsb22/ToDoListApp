@@ -8,12 +8,10 @@ interface Props {
 
 const ImportantTasks = ({ tasks }: Props) => {
   return (
-    <SimpleGrid columns={{ sm: 2, xl: 3 }}>
-      <ul>
-        {tasks.map((task) => (
-          <ImportantCard task={task} />
-        ))}
-      </ul>
+    <SimpleGrid columns={{ sm: 2, xl: 3 }} gap={3}>
+      {tasks.map((task) => (
+        <ImportantCard task={task} key={task.id} />
+      ))}
     </SimpleGrid>
   );
 };

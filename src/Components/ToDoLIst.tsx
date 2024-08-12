@@ -11,7 +11,7 @@ interface Props {
 const ToDoLIst = ({ toDoos, taskCompleted, taskDeleted }: Props) => {
   return (
     <>
-      <SimpleGrid columns={{ sm: 2, xl: 3 }} gap={3}>
+      <SimpleGrid columns={{ sm: 2, xl: 3 }} gap={3} overflowX="hidden">
         {toDoos.map((todo) => (
           <ToDoCard
             key={todo.id}

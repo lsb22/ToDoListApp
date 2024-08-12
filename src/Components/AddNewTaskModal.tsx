@@ -24,7 +24,7 @@ const schema = z.object({
   name: z
     .string({ message: "Task name is required." })
     .min(3, { message: "Length should be atleast 3" })
-    .max(10, { message: "Length should be less than equal 9" }),
+    .max(18, { message: "Length should be less than equal 18" }),
   description: z
     .string({ message: "Description is required." })
     .min(5, { message: "Length should be atleast 5" })

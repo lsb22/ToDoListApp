@@ -8,12 +8,10 @@ interface Props {
 
 const DeletedTasks = ({ tasks }: Props) => {
   return (
-    <SimpleGrid columns={{ sm: 2, xl: 3 }}>
-      <ul>
-        {tasks.map((task) => (
-          <DeletedCard task={task} />
-        ))}
-      </ul>
+    <SimpleGrid columns={{ sm: 2, xl: 3 }} gap={3}>
+      {tasks.map((task) => (
+        <DeletedCard task={task} key={task.id} />
+      ))}
     </SimpleGrid>
   );
 };

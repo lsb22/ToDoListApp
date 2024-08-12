@@ -13,6 +13,7 @@ import ExpandTodoCard from "./ExpandTodoCard";
 
 interface Props {
   task: Todos;
+  key: number;
 }
 
 const DeletedCard = ({ task }: Props) => {

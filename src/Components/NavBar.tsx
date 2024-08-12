@@ -8,7 +8,11 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import ColorModeSwitch from "./ColorModeSwitch";
 
-const NavBar = () => {
+interface Props {
+  handleSearch: (query: string) => void;
+}
+
+const NavBar = ({ handleSearch }: Props) => {
   return (
     <HStack justifyContent="space-between" alignContent="center" margin="30px">
       <Text
@@ -29,6 +33,7 @@ const NavBar = () => {
             htmlSize={60}
             placeholder="Search here"
             borderRadius="8px"
+            onChange={(e) => handleSearch(e.target.value)}
           />
         </InputGroup>
       </HStack>

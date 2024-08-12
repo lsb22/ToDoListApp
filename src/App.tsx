@@ -8,9 +8,11 @@ import { Route, Routes } from "react-router-dom";
 import CompletedTasks from "./Components/CompletedTasks";
 import DeletedTasks from "./Components/DeletedTasks";
 import ImportantTasks from "./Components/ImportantTasks";
+import { useState } from "react";
 
 function App() {
   const { toDoos, setToDoos, error, setError } = useTodoos();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const addNewTask = (newTodo: Todos) => {
     const original = [...toDoos];
@@ -25,10 +27,14 @@ function App() {
   };
 
   const updateCompletion = (id: number) => {
+    console.log(id);
     apiClient
       .delete("/complete/" + id)
       .then((res) => setToDoos(res.data))
-      .catch((err) => setError(err));
+      .catch((err) => {
+        setError(err);
+        console.log(error);
+      });
   };
 
   const deleteTask = (id: number) => {
@@ -37,6 +43,22 @@ function App() {
       .then((res) => setToDoos(res.data))
       .catch((err) => setError(err));
   };
+
+  const handleSearch = (query: string) => {
+    console.log(query);
+    const params = new URLSearchParams(window.location.search);
+    params.set("search", query);
+    window.history.replaceState(
+      {},
+      "",
+      `${window.location.pathname}?${params}`
+    );
+    setSearchQuery(query);
+  };
+
+  const filteredTasks = toDoos.filter((task) =>
+    task.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Grid
@@ -51,7 +73,7 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar handleSearch={handleSearch} />
       </GridItem>
 
       <Show above="md">
@@ -67,7 +89,7 @@ function App() {
             path="/"
             element={
               <ToDoLIst
-                toDoos={toDoos.filter(
+                toDoos={filteredTasks.filter(
                   (task) => !task.isCompleted && !task.isDeleted
                 )}
                 taskCompleted={(id: number) => updateCompletion(id)}
@@ -79,7 +101,7 @@ function App() {
             path="/completed"
             element={
               <CompletedTasks
-                tasks={toDoos.filter(
+                tasks={filteredTasks.filter(
                   (task) => task.isCompleted && !task.isDeleted
                 )}
               />
@@ -89,7 +111,7 @@ function App() {
             path="/removed"
             element={
               <DeletedTasks
-                tasks={toDoos.filter(
+                tasks={filteredTasks.filter(
                   (task) => !task.isCompleted && task.isDeleted
                 )}
               />
@@ -98,7 +120,9 @@ function App() {
           <Route
             path="/important"
             element={
-              <ImportantTasks tasks={toDoos.filter((task) => task.important)} />
+              <ImportantTasks
+                tasks={filteredTasks.filter((task) => task.important)}
+              />
             }
           />
         </Routes>
