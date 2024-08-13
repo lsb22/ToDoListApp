@@ -56,6 +56,13 @@ function App() {
     setSearchQuery(query);
   };
 
+  const updateEditedTasks = (task: Todos) => {
+    apiClient
+      .patch("/updateTask/" + task.id, task)
+      .then((res) => setToDoos(res.data))
+      .catch((err) => setError(err));
+  };
+
   const filteredTasks = toDoos.filter((task) =>
     task.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -94,6 +101,7 @@ function App() {
                 )}
                 taskCompleted={(id: number) => updateCompletion(id)}
                 taskDeleted={(id: number) => deleteTask(id)}
+                updateEditedTask={updateEditedTasks}
               />
             }
           />

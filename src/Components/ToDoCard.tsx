@@ -14,20 +14,25 @@ import { Todos } from "../hooks/useTodoos";
 import { DeleteIcon, EditIcon, StarIcon } from "@chakra-ui/icons";
 import TrimContent from "./TrimContent";
 import ExpandTodoCard from "./ExpandTodoCard";
+import { useState } from "react";
+import EditTask from "./EditTask";
 
 interface Props {
   todo: Todos;
   key: number;
   taskCompleted: (id: number) => void;
   taskDeleted: (id: number) => void;
+  updateEditedTask: (task: Todos) => void;
 }
 
-const handleEdit = (task: Todos) => {
-  console.log(task);
-};
-
-const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
+const ToDoCard = ({
+  todo,
+  taskCompleted,
+  taskDeleted,
+  updateEditedTask,
+}: Props) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const [editMenu, setEditMenu] = useState(false);
   const new_date = new Date(todo.date);
   const month = new_date.toLocaleString("default", { month: "long" });
   const day = new_date.getDate();
@@ -48,6 +53,10 @@ const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
     minutes +
     " " +
     time;
+  const handleEdit = () => {
+    setEditMenu(!editMenu);
+  };
+
   return (
     <Card boxShadow="2xl">
       <CardHeader>
@@ -71,8 +80,15 @@ const ToDoCard = ({ todo, taskCompleted, taskDeleted }: Props) => {
               mr={2}
               _hover={{ color: "teal", boxSize: 5 }}
               boxSize={3}
-              onClick={() => handleEdit(todo)}
+              onClick={() => setEditMenu(!editMenu)}
             />
+            {editMenu && (
+              <EditTask
+                task={todo}
+                handleEdit={handleEdit}
+                updateEditedTask={updateEditedTask}
+              />
+            )}
             <DeleteIcon
               onClick={() => taskDeleted(todo.id)}
               color="red"

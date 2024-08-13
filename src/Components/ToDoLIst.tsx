@@ -6,9 +6,15 @@ interface Props {
   toDoos: Todos[];
   taskCompleted: (id: number) => void;
   taskDeleted: (id: number) => void;
+  updateEditedTask: (task: Todos) => void;
 }
 
-const ToDoLIst = ({ toDoos, taskCompleted, taskDeleted }: Props) => {
+const ToDoLIst = ({
+  toDoos,
+  taskCompleted,
+  taskDeleted,
+  updateEditedTask,
+}: Props) => {
   return (
     <>
       <SimpleGrid columns={{ sm: 2, xl: 3 }} gap={3} overflowX="hidden">
@@ -18,6 +24,7 @@ const ToDoLIst = ({ toDoos, taskCompleted, taskDeleted }: Props) => {
             todo={todo}
             taskCompleted={taskCompleted}
             taskDeleted={taskDeleted}
+            updateEditedTask={updateEditedTask}
           />
         ))}
       </SimpleGrid>

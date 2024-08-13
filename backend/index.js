@@ -64,6 +64,21 @@ app.delete("/delete/:id", (req, res) => {
   return res.send(updatedTasks.tasks);
 });
 
+// updating edited tasks
+
+app.patch("/updateTask/:id", (req, res) => {
+  if (!req.body)
+    return res.status(400).send({ message: "Please enter the details" });
+  const id = parseInt(req.params.id);
+
+  const updatedTasks = {
+    tasks: data.tasks.map((t) => (t.id === id ? req.body : t)),
+  };
+
+  fs.writeFileSync(filePath, JSON.stringify(updatedTasks));
+  return res.send(updatedTasks.tasks);
+});
+
 // const d = {
 //   ...data,
 //   task3: {
