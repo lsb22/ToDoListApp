@@ -14,6 +14,7 @@ import {
   CardHeader,
   HStack,
   Text,
+  useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
 import AddNewTaskModal from "./AddNewTaskModal";
@@ -29,6 +30,8 @@ const SidePanel = ({ sendTodo }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedComponent, setSelectedComponent] = useState("All Tasks");
   const navigate = useNavigate();
+  const { colorMode } = useColorMode();
+  const color = colorMode === "dark" ? "white" : "black";
   return (
     <Card boxShadow="2xl">
       <CardHeader>
@@ -49,14 +52,30 @@ const SidePanel = ({ sendTodo }: Props) => {
             mb={5}
             display="block"
             onClick={() => {
-              setSelectedComponent("All Tasks");
+              setSelectedComponent("Tasks");
               navigate("/");
             }}
-            color={selectedComponent === "All Tasks" ? "coral" : "white"}
+            color={selectedComponent === "Tasks" ? "coral" : color}
           >
             <HStack>
               <CalendarIcon boxSize={4} mr={4} />
-              <Text>All Tasks</Text>
+              <Text>Tasks</Text>
+            </HStack>
+          </Button>
+          <Button
+            variant="link"
+            fontSize="xl"
+            mb={5}
+            display="block"
+            onClick={() => {
+              setSelectedComponent("Due Soon");
+              navigate("/dueSoon");
+            }}
+            color={selectedComponent === "Due Soon" ? "coral" : color}
+          >
+            <HStack>
+              <ArrowRightIcon boxSize={4} mr={4} />
+              <Text>Due Soon</Text>
             </HStack>
           </Button>
           <Button
@@ -68,7 +87,7 @@ const SidePanel = ({ sendTodo }: Props) => {
               setSelectedComponent("Important");
               navigate("/important");
             }}
-            color={selectedComponent === "Important" ? "coral" : "white"}
+            color={selectedComponent === "Important" ? "coral" : color}
           >
             <HStack>
               <StarIcon boxSize={4} mr={4} />
@@ -84,7 +103,7 @@ const SidePanel = ({ sendTodo }: Props) => {
               setSelectedComponent("Completed");
               navigate("/completed");
             }}
-            color={selectedComponent === "Completed" ? "coral" : "white"}
+            color={selectedComponent === "Completed" ? "coral" : color}
           >
             <HStack>
               <CheckCircleIcon boxSize={4} mr={4} />
@@ -100,27 +119,11 @@ const SidePanel = ({ sendTodo }: Props) => {
               setSelectedComponent("Removed");
               navigate("/removed");
             }}
-            color={selectedComponent === "Removed" ? "coral" : "white"}
+            color={selectedComponent === "Removed" ? "coral" : color}
           >
             <HStack>
               <DeleteIcon boxSize={4} mr={4} />
               <Text>Removed</Text>
-            </HStack>
-          </Button>
-          <Button
-            variant="link"
-            fontSize="xl"
-            mb={5}
-            display="block"
-            onClick={() => {
-              setSelectedComponent("Due Soon");
-              navigate("/dueSoon");
-            }}
-            color={selectedComponent === "Due Soon" ? "coral" : "white"}
-          >
-            <HStack>
-              <ArrowRightIcon boxSize={4} mr={4} />
-              <Text>Due Soon</Text>
             </HStack>
           </Button>
         </Box>

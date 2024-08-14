@@ -60,6 +60,14 @@ const CompletedCard = ({ task }: Props) => {
         >
           Was due on: {full_time}
         </Text>
+        <Text
+          mt={3}
+          bgGradient="linear(83deg,coral,lightpink,green)"
+          bgClip="text"
+          fontWeight={600}
+        >
+          Completed on: {task.lastUpdated}
+        </Text>
       </CardHeader>
       <CardBody>
         <Box fontSize="xl" fontWeight="bold">

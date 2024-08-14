@@ -9,6 +9,7 @@ import CompletedTasks from "./Components/CompletedTasks";
 import DeletedTasks from "./Components/DeletedTasks";
 import ImportantTasks from "./Components/ImportantTasks";
 import { useState } from "react";
+import DueSoon from "./Components/DueSoon";
 
 function App() {
   const { toDoos, setToDoos, error, setError } = useTodoos();
@@ -130,6 +131,19 @@ function App() {
             element={
               <ImportantTasks
                 tasks={filteredTasks.filter((task) => task.important)}
+              />
+            }
+          />
+          <Route
+            path="/dueSoon"
+            element={
+              <DueSoon
+                todoArray={filteredTasks.filter(
+                  (task) => !task.isCompleted && !task.isDeleted
+                )}
+                taskCompleted={(id: number) => updateCompletion(id)}
+                taskDeleted={(id: number) => deleteTask(id)}
+                updateEditedTask={updateEditedTasks}
               />
             }
           />

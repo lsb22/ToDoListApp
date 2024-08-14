@@ -13,8 +13,6 @@ const __dirname = path.dirname(__filename);
 const filePath = path.join(__dirname, "data.json");
 const data = JSON.parse(fs.readFileSync(filePath));
 
-// console.log(data.tasks);
-
 app.listen(5000, () => {
   console.log("server is running on port 5000");
 });
@@ -78,13 +76,3 @@ app.patch("/updateTask/:id", (req, res) => {
   fs.writeFileSync(filePath, JSON.stringify(updatedTasks));
   return res.send(updatedTasks.tasks);
 });
-
-// const d = {
-//   ...data,
-//   task3: {
-//     name: "sport",
-//     date: 10,
-//   },
-// };
-
-// fs.writeFileSync(filePath, JSON.stringify(d));

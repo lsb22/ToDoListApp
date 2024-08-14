@@ -17,7 +17,7 @@ const ToDoLIst = ({
 }: Props) => {
   return (
     <>
-      <SimpleGrid columns={{ sm: 2, xl: 3 }} gap={3} overflowX="hidden">
+      <SimpleGrid columns={{ sm: 2, xl: 3 }} gap={3}>
         {toDoos.map((todo) => (
           <ToDoCard
             key={todo.id}
