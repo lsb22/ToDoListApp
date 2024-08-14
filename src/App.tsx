@@ -10,6 +10,7 @@ import DeletedTasks from "./Components/DeletedTasks";
 import ImportantTasks from "./Components/ImportantTasks";
 import { useState } from "react";
 import DueSoon from "./Components/DueSoon";
+import MenuBar from "./Components/MenuBar";
 
 function App() {
   const { toDoos, setToDoos, error, setError } = useTodoos();
@@ -76,7 +77,6 @@ function App() {
       }}
       templateColumns={{
         base: "1fr",
-        // md: "315 1fr",
         lg: "330px 1fr",
       }}
     >
@@ -98,6 +98,9 @@ function App() {
 
       <GridItem area="main" padding={5}>
         {error && <Text color="red">{error}</Text>}
+        <Show below="lg">
+          <MenuBar />
+        </Show>
         <Routes>
           <Route
             path="/"
