@@ -72,19 +72,25 @@ function App() {
     <Grid
       templateAreas={{
         base: `"nav" "main"`,
-        md: `"nav nav" "aside main"`,
+        lg: `"nav nav" "aside main"`,
       }}
       templateColumns={{
         base: "1fr",
-        md: "315 1fr",
-        lg: "350px 1fr",
+        // md: "315 1fr",
+        lg: "330px 1fr",
       }}
     >
-      <GridItem area="nav">
+      <GridItem
+        area="nav"
+        position="sticky"
+        top="0"
+        zIndex="100"
+        backdropFilter="blur(10px)"
+      >
         <NavBar handleSearch={handleSearch} />
       </GridItem>
 
-      <Show above="md">
+      <Show above="lg">
         <GridItem mr={10} ml={7} area="aside">
           <SidePanel sendTodo={(data: Todos) => addNewTask(data)} />
         </GridItem>

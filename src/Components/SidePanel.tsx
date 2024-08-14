@@ -28,12 +28,12 @@ interface Props {
 
 const SidePanel = ({ sendTodo }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedComponent, setSelectedComponent] = useState("All Tasks");
+  const [selectedComponent, setSelectedComponent] = useState("Tasks");
   const navigate = useNavigate();
   const { colorMode } = useColorMode();
   const color = colorMode === "dark" ? "white" : "black";
   return (
-    <Card boxShadow="2xl">
+    <Card boxShadow="2xl" position="fixed" minWidth="280px">
       <CardHeader>
         <Button width="100%" colorScheme="green" onClick={onOpen}>
           <AddIcon mr={2} /> New Task
