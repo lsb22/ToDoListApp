@@ -23,17 +23,20 @@ const NavBar = ({ handleSearch }: Props) => {
   const showFullNav = useBreakpointValue({ base: false, md: true });
   return (
     <Flex margin="30px" as="nav" justify="space-between" align="center">
-      <Box>
-        <Text
-          fontSize={{ base: "28px", md: "3xl" }}
-          fontWeight="bold"
-          bgGradient="linear(to-r,orange,coral)"
-          bgClip="text"
-          minWidth="85px"
-        >
-          To Do
-        </Text>
-      </Box>
+      {showFullNav && (
+        <Box>
+          <Text
+            fontSize={{ base: "28px", md: "3xl" }}
+            fontWeight="bold"
+            bgGradient="linear(to-r,orange,coral)"
+            bgClip="text"
+            minWidth="85px"
+          >
+            To Do
+          </Text>
+        </Box>
+      )}
+
       <Box mx={4}>
         <InputGroup>
           <InputLeftElement pointerEvents="none">

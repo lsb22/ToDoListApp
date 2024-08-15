@@ -1,4 +1,13 @@
-import { Grid, GridItem, Show, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Grid,
+  GridItem,
+  HStack,
+  Show,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import NavBar from "./Components/NavBar";
 import ToDoLIst from "./Components/ToDoLIst";
 import SidePanel from "./Components/SidePanel";
@@ -11,10 +20,13 @@ import ImportantTasks from "./Components/ImportantTasks";
 import { useState } from "react";
 import DueSoon from "./Components/DueSoon";
 import MenuBar from "./Components/MenuBar";
+import { AddIcon } from "@chakra-ui/icons";
+import AddNewTaskModal from "./Components/AddNewTaskModal";
 
 function App() {
   const { toDoos, setToDoos, error, setError } = useTodoos();
   const [searchQuery, setSearchQuery] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const addNewTask = (newTodo: Todos) => {
     const original = [...toDoos];
@@ -99,7 +111,19 @@ function App() {
       <GridItem area="main" padding={5}>
         {error && <Text color="red">{error}</Text>}
         <Show below="lg">
-          <MenuBar />
+          <HStack justifyContent="space-between">
+            <MenuBar />
+            <Box mb={5}>
+              <Button width="100%" colorScheme="green" onClick={onOpen}>
+                <AddIcon mr={2} /> New Task
+              </Button>
+              <AddNewTaskModal
+                onClose={onClose}
+                isOpen={isOpen}
+                sendTodo={addNewTask}
+              />
+            </Box>
+          </HStack>
         </Show>
         <Routes>
           <Route
