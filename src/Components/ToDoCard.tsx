@@ -58,7 +58,14 @@ const ToDoCard = ({
   };
 
   return (
-    <Card boxShadow="2xl">
+    <Card
+      boxShadow="2xl"
+      border="1px"
+      sx={{
+        borderImage: "linear-gradient(120deg, #2C5F2D,#97BC62FF)",
+        borderImageSlice: 1,
+      }}
+    >
       <CardHeader>
         <ExpandTodoCard
           task={todo}
